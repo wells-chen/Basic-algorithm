@@ -1,0 +1,109 @@
+// define the stuct of tree.
+typedef struct BinarryTree()
+{
+    int data;
+    BinarryTree *lchild;
+    BinarryTree *rchild;
+    BinarryTres(int x):data(x),lchild(NULL),rchild(NULL){}
+}TreeNode,*BinTree;
+
+//Creat Binarry Tree
+BinTree CreateBinarryTree()
+{
+   int data;
+   cout<<"Please Input data:"<<endl;
+   cin>>data;
+   BinTree T;
+   if(-65536==data){
+   T=NUL;
+   }
+   else{
+   T = new TreeNode(data);
+   T->lchild = CreateBinarryTree();
+   T->rchild = CreateBinarryTree();
+   }
+   return T;
+}
+// PreOrder
+void PreOrder(BinTree root)
+{
+   if(root==NULL)return;
+   stack<TreeNode> stk;
+   BinTree p = root;
+   stk.push(p);//unneccessary for midorder posorder
+   while(!stack.empty()){
+         p = stk.top();
+         stk.pop();
+         cout<<p->lchid<<" ";
+         if(p->rchild!=NULL)stk.push(p->rchild);
+         if(p->lchild!=NULL)stk.push(p->lchild);
+    }
+}
+
+// middle order
+void MidOrder(BinTree root)
+{
+   if(root==NULL)return;
+   stack<TreeNode> stk;
+   BinTree p = root;
+   while(!stk.empty()||p!=NULL){
+     //left
+     while(p!=NULL){
+     stk.push(p);
+     p=p->lchild;
+     }
+    p = stk.top();
+    stk.pop()
+    cout<<P->data<<" ";
+    //right
+    p=p->rchild;
+   }
+}
+
+//pos order
+void PosOrder(BinTree root)
+{
+  if(root == NULL)return;
+  stack<TreeNode> stk;
+  Bintree p,q;
+  p = root;
+  do{
+     while(p!=NULL){
+        stk.push(p);
+        p=p->lchild;
+      }
+      q=NULL;
+     while(!stk.empty()){
+         p=stk.top()
+         if(q==p->rchild){
+         cout<<p->data<<" ";
+         q=p;
+        }
+        else{
+           stk.push(p);
+           p=p->rchild;
+            break;
+         }
+      }
+  }while(!stk.empty());
+}
+
+//level Order
+void levelOrder(BinTree root)
+{
+    if(root == NULL)return;
+    queue<TreeNode> que;
+    Bintree p=root;
+    que.push(p);
+    while(!que.empty()){
+      int level_size=queue.size();
+      for(int i=0;i<level_size;i++){
+         p=que.front();
+         que.pop();
+         cout<<p->data<<" ";
+         if(p->lchild!=NULL) que.push(p->lchild);
+         if(p->rchild!=NULL) que.push(p->rchild);
+      }
+     cout<<endl;
+    }
+}

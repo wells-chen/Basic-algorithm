@@ -28,7 +28,7 @@ BinTree CreateBinarryTree()
 void PreOrder(BinTree root)
 {
    if(root==NULL)return;
-   stack<TreeNode> stk;
+   stack<BinTree> stk;
    BinTree p = root;
    stk.push(p);//unneccessary for midorder posorder
    while(!stack.empty()){
@@ -44,7 +44,7 @@ void PreOrder(BinTree root)
 void MidOrder(BinTree root)
 {
    if(root==NULL)return;
-   stack<TreeNode> stk;
+   stack<BinTree> stk;
    BinTree p = root;
    while(!stk.empty()||p!=NULL){
      //left
@@ -64,7 +64,7 @@ void MidOrder(BinTree root)
 void PosOrder(BinTree root)
 {
   if(root == NULL)return;
-  stack<TreeNode> stk;
+  stack<BinTree> stk;
   Bintree p,q;
   p = root;
   do{
@@ -92,7 +92,7 @@ void PosOrder(BinTree root)
 void levelOrder(BinTree root)
 {
     if(root == NULL)return;
-    queue<TreeNode> que;
+    queue<BinTree> que;
     Bintree p=root;
     que.push(p);
     while(!que.empty()){
@@ -107,3 +107,113 @@ void levelOrder(BinTree root)
      cout<<endl;
     }
 }
+void BFS(BinTree root)
+{
+    if(root == NULL)return;
+    queue<BinTree> que;
+    BinTree p=root;
+    que.push(p);
+    while(!que.empty()){
+      p=que.front();
+      que.pop();
+      cout<<p->data<<" ";
+      if(p->lchild != NULL)que.push(p->lchild);
+      if(p->rchild != NULL)que.push(p->rchild);
+    }
+}
+void DFS(BinTree root)
+{
+  if(root == NULL) return;
+  stack<BinTree> stk;
+  BinTree p=root;
+  stk.push(p);
+  while(!stk.empty()){
+     p=stk.top();
+     stk.pop();
+     cout<<p->data<<" ";
+     
+     if(p->rchild!=NULL)stk.push(p->rchild);
+     if(p->lchild!=NULL)stk.push(p->lchild);
+  }
+}
+// operation
+void insertBST(BinTree &root, BinTree NewNode)
+{
+  if(root == NULL)
+     root = NewNode;
+  elseif(NewNode->data<root->data)
+     insertBST(root->lchild,NewNode);
+  elseif(NewNode->data>root->data)
+     insertBST(root->rchild,NewNode);
+}
+
+bool seachBST(BinTree root, int target)
+{
+   if(root == NULL)return false;
+   if(target < root->data)
+      return searchBST(root->lchild, target);
+    elseif(target>root->data)
+      return searchBST(root->rchild, target);
+    else
+      return ture;
+}
+//find aim node and return it  by iterative
+TreeNode* searchBSTIterative(TreeNode *root, int val){
+    TreeNode *p = root;
+    while(p != NULL){
+        if(val < p->val){
+            p = p->lchild;
+        }else if(val > p->val){
+            p = p->rchild;
+        }else{
+            return p;
+        }
+    }
+    return NULL;
+}
+
+//search for node by iterative
+bool insertBSTIterative(TreeNode *&root, int val){
+    TreeNode *par = NULL;
+    TreeNode *cur = root;
+    while(cur != NULL){
+        if(val < cur->val){
+            par = cur;
+            cur = cur->lchild;
+        }else if (val > cur->val){
+            par = cur;
+            cur = cur->rchild;
+        }else{
+            return false;//如果BST中存在相同则返回false
+        }
+    }
+
+    TreeNode *newNode = new TreeNode(val);
+    if(cur == NULL){
+        root = newNode;
+    }else{
+        if(val > par->val){
+            par->rchild = newNode;
+        }else{
+            par->lchild = newNode;
+        }
+    }
+    return true;
+}
+
+
+bool deleteBSTIterative(BinTree root, int target)
+{
+   if(root == NULL) return false;
+   BinTree cur = root;
+   BinTree par = root;
+   while(NULL != cur){
+         if(cur->data<target){
+            par = cur;
+            cur = cur->rchild;
+            }
+         else if(cur->data>target)
+         }
+   }
+}
+

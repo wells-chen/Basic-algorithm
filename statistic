@@ -1,0 +1,36 @@
+// statistic for number ration
+vector<int> num_sta(int x)
+{
+	vector<int> result(10,0);
+   while(x)
+	{   
+        result[x%10]++;   
+        x /=10;   
+     }     
+   return result;   
+}
+// statistic for letter in a string
+int string_sta(string str,string psr)
+{
+   int result=0;
+   int i=0,j=0;
+   while(str[i]!='\0')
+   {
+      if(str[i]==par[j])
+      {
+         if(par[j]=='\0')
+         {
+          result++;
+          j=-1;
+         }
+         i++;j++;
+      }
+      else
+      {
+        i=i-j+1;
+        j=0
+      }
+   }
+   return result;
+}
+//统计文本中单词的数量

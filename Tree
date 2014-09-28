@@ -4,18 +4,20 @@ typedef struct BinarryTree()
     int data;
     BinarryTree *lchild;
     BinarryTree *rchild;
-    BinarryTres(int x):data(x),lchild(NULL),rchild(NULL){}
+    BinarryTres(int x):data(x),lchild(NULL),rchild(NULL){}  //初始化
 }TreeNode,*BinTree;
+template<typename T> BinTree()
 
-//Creat Binarry Tree
+
+//Creat Binarry Tree 创建树
 BinTree CreateBinarryTree()
 {
    int data;
    cout<<"Please Input data:"<<endl;
    cin>>data;
    BinTree T;
-   if(-65536==data){
-   T=NUL;
+   if(-1==data){
+   T=NULL;
    }
    else{
    T = new TreeNode(data);
@@ -24,7 +26,7 @@ BinTree CreateBinarryTree()
    }
    return T;
 }
-// PreOrder
+// PreOrder 前序遍历
 void PreOrder(BinTree root)
 {
    if(root==NULL)return;

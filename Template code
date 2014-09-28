@@ -1,0 +1,33 @@
+//两个的栈实现队列
+template<typename T>
+class Queue()
+{
+   public：
+          Queue();
+          ~Queue();
+          AppendTrail(const T &node)
+          DeleteHead()
+    private:
+      stack<T> m_stack1;
+      stack<T> m_stack2;
+}
+template<typename T>
+Queue<T>::AppendTrail(const T &node)
+{
+   m_stack1.push(node);
+}
+template<typalname T>
+T Queue<T>::DeleteHead()
+{
+  if(m_stack2.empty()&&m_stack1.empty())
+  return NULL;
+  if(m_stack2.empty())
+  while(!m_stack1.empty())
+  {
+     m_stack2.push(m_stack1.top())
+     m_stack1.pop();
+  }
+  T t=m_stack2.top();
+  m_stack2.pop();
+  return t;
+}

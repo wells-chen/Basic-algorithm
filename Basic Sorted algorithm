@@ -1,0 +1,91 @@
+//Quick sorted
+void Qsorted(int src[],int st,int ed)
+{
+	if(st>=ed)
+	   return;
+	while(st<ed)
+	{
+       int pivot = patition(src,st,ed);
+       Qsorted(src,st,pivot-1);
+       Qsorted(src,pivot+1,ed)
+	}
+}
+void patition(int src[],int st,int ed)
+{
+	int key=src[st];
+	while(st<ed)
+	{
+	   while(st<ed&&src[ed]>=key)
+	         en--;
+	   src[low]=src[ed];
+	   while(st<ed&&Key>=src[st])
+	         st++;
+	   src[ed]=src[low];
+	}
+}
+// Merge Sorted
+const Maxsize = 100;
+void Msorted(int src[],int trc[],int low,int high)
+{
+    assert(src);
+    if(low==high)
+        return trc[low]=src[low];
+     int m;
+     int trc2[Maxsize]
+     while(low<high)
+     {
+          m = (low+high)/2
+          Msorted(src,trc2,low,m);
+          Msorted(src,trc2,m+1,high);
+          merge(trc2,trc,low,m,high);
+     }
+}
+void merge(int trc2[],int trc[],int low,int m,int high)
+{
+    int j,k,l;
+    for(j=m+1k=low;low<=m&&j<=high;k++)
+    {
+       if(trc2[low]<=trc2[j])
+       trc[k++]=trc2[low++];
+       else
+       trc[k++]=trc2[j++];
+    }
+    if(low<=m)
+    {
+       for(l=0;l<=m-low;l++)
+       {
+           trc[k+l] = trc2[k+l];
+       }
+    }
+    if(j<=high)
+    {
+        for(l=0;l<=high-j;l++)
+        {
+            trc[k+l]=trc2[k+l];
+        }
+    }
+}
+//归并排序  非递归版
+void Msorted(int src[],int trc[],int n)
+{
+	for(int s=1;s<n/2;s++)
+	{
+	    Mergepass(src,trc,s,n);
+	}
+}
+void Mergepass(int src[],int trc[],int s, int n)
+{
+    int i=0;
+    while(i<n-2*s+1)
+    {
+        merge(src,trc,i,i+s,i+2s-1);
+        i=i+2s;
+    }
+    if(i<n-s+1)
+    merge(src,trc,i,n-s+1,n-1);
+    else
+    {
+        for(;i<n;i++)
+        trc[i]=src[i];
+    }
+}

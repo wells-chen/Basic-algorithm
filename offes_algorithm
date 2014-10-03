@@ -1,0 +1,22 @@
+//Two dimension ascending  matrix search
+bool Two_Dim_S(const int *src,int rows,int colums,int &key)
+{
+	bool found = false;
+	if(NULL != src || rows>0 || colums>0);
+	{
+		int row=0,colum=colums-1;
+		while(row<rows && colum<colums)
+		{
+			if(src[row*colums+colum] == key)
+			{
+				found = true;
+				break;
+			}
+			else if(src[rows*colums+colum] > key)
+				-- colum;
+			else
+				++ row;
+		}
+	}
+	return found;
+}

@@ -1,0 +1,122 @@
+#include<string>
+#include<iostream>
+#include<sstream>
+#include<stdlib.h>
+
+using namespace std;
+
+typedef struct node
+{
+	int value;
+	node* pNext;
+}Node;
+
+
+void int2str(const int &int_temp,string &string_temp)  
+{  
+	stringstream stream;  
+	stream<<int_temp;  
+	string_temp=stream.str();  
+}
+
+
+void print_node(Node* head,int dimension,int line_num,string &out_string_left,string &out_string_right)
+{
+	//cout<<head->value<<" "<<dimension<<" "<<line_num<<" "<<out_string_left<<" "<<out_string_right<<endl;
+	//cout<<dimension/2<<endl;
+	string str_tmp;
+	//if (dimension <=1)
+	//{
+	//	(head->value,str_tmp);
+	//	out_string_left +=" " +str_tmp;
+	//	return;
+	//}
+
+	if(line_num <= 1+dimension/2)
+	{
+		if (line_num == 1) {
+			Node* inner_node = head;
+			for(int i=0;i<dimension+1;++i)
+			{
+				//cout<<inner_node->value<<endl;
+				int2str(inner_node->value,str_tmp);
+				out_string_left +=" "+ str_tmp;
+				inner_node = inner_node ->pNext;
+			}
+			return;
+		}
+		else {
+			Node* inner_node = head;
+			for(int i=0;i<dimension+line_num-1;++i) inner_node = inner_node ->pNext;
+			//cout<<inner_node->value<<endl;
+			int2str(inner_node->value,str_tmp);
+			//cout<<inner_node->value<<endl;
+			out_string_right = str_tmp+" "+out_string_right;
+			for(int i=0;i<dimension*3-2*line_num+2;++i) inner_node = inner_node ->pNext;
+			int2str(inner_node->value,str_tmp);
+			out_string_left += " "+ str_tmp;
+			if(line_num>2){
+			for(int i=0;i<line_num-2;++i) inner_node = inner_node ->pNext;
+			}
+			if (dimension>=0) print_node(inner_node->pNext,dimension-2,line_num-1,out_string_left,out_string_right);
+		}
+	}
+	else
+	{
+		if(line_num == dimension+1){
+			Node* inner_node = head;
+			for(int i=0;i<2*dimension;++i) inner_node = inner_node ->pNext;
+			for(int i=0;i<dimension+1;++i)
+			{
+				int2str(inner_node->value,str_tmp);
+				out_string_right = str_tmp+" "+out_string_right;
+				inner_node = inner_node ->pNext;
+			}
+			return;
+		}
+		else{
+			Node* inner_node = head;
+			for(int i=0;i<dimension + line_num-1;++i) inner_node = inner_node ->pNext;
+			int2str(inner_node->value,str_tmp);
+			out_string_right = str_tmp+" "+out_string_right;
+			for(int i=0;i<3*dimension - 2*line_num+2;++i) inner_node = inner_node ->pNext;
+			int2str(inner_node->value,str_tmp);
+			out_string_left +=" "+ str_tmp;
+			for(int i=0;i<line_num-2;++i) inner_node = inner_node ->pNext;
+			if (dimension>=0) print_node(inner_node->pNext,dimension-2,line_num-1,out_string_left,out_string_right);
+		}
+	}
+}
+
+
+int main(void)
+{
+	int input_num;
+	cout<<"please input the number to print"<<endl;
+	cin>>input_num;
+	if (input_num<1)
+	{
+		//cout<<"ERRO: please input right number"<<endl;
+		return 0;
+	}
+	Node* head = (Node*) malloc(sizeof(Node));
+	Node* cur = head;
+	//cout<<"begin to create node"<<endl;
+	for(int i = 0;i<input_num*input_num;++i)
+	{
+		Node* tmp = (Node*) malloc(sizeof(Node));
+		tmp -> value = i+1;
+		cur	->pNext = tmp;
+		cur = cur -> pNext;
+	}
+	cur -> pNext = NULL;
+	cout<<"begin to print"<<endl;
+	for (int i=0;i<input_num;++i)
+	{
+		string out_string_right,out_string_left;
+		print_node(head->pNext,input_num-1,i+1,out_string_left,out_string_right);
+		cout<<out_string_left<<" "<<out_string_right<<endl;
+	}
+
+
+}
